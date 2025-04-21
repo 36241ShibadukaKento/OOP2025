@@ -3,6 +3,7 @@ using System.Diagnostics.Metrics;
 
 namespace DistanceConverter {
     internal class Program {
+        //たけやぶやけたよ
         static void Main(string[] args) {
             int start = int.Parse(args[1]);
             int end = int.Parse(args[2]);
