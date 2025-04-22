@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter02", "Chapter02", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistanceConverter", "Chapter02\DistanceConverter\DistanceConverter.csproj", "{B2E13073-854D-46D0-B856-7CF4E9C61DDE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "演習問題", "演習問題", "{4D25C4EA-F807-4809-A2A9-A5EDB038F850}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise02", "Chapter02\演習問題\Exercise02\Exercise02.csproj", "{AA45B8D9-68BD-4618-A03F-10EEC94FFE9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{B2E13073-854D-46D0-B856-7CF4E9C61DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2E13073-854D-46D0-B856-7CF4E9C61DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2E13073-854D-46D0-B856-7CF4E9C61DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA45B8D9-68BD-4618-A03F-10EEC94FFE9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA45B8D9-68BD-4618-A03F-10EEC94FFE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA45B8D9-68BD-4618-A03F-10EEC94FFE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA45B8D9-68BD-4618-A03F-10EEC94FFE9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{26BB2910-01A5-466D-AD4F-4D963B8FE932} = {DDB4EF12-CC4E-5E88-E6FC-71A802F4DE97}
 		{B2E13073-854D-46D0-B856-7CF4E9C61DDE} = {B48033F8-D5B5-45B8-BB0F-C23FCEA5B61F}
+		{4D25C4EA-F807-4809-A2A9-A5EDB038F850} = {B48033F8-D5B5-45B8-BB0F-C23FCEA5B61F}
+		{AA45B8D9-68BD-4618-A03F-10EEC94FFE9A} = {4D25C4EA-F807-4809-A2A9-A5EDB038F850}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF52C180-5FFB-4FF1-A5E9-B49E2C819C07}
