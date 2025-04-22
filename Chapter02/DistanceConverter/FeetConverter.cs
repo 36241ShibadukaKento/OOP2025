@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace DistanceConverter
 {
-    public class FeetConverter
+    static class FeetConverter
     {
     
 
-            public  double FeetToMeter(int feet) {
+            public static double FeetToMeter(int feet) {
                 return feet * 0.3048;
             }
-            public  double MeterToFeet(int meter) {
+            public static double MeterToFeet(int meter) {
                 return meter / 0.3048;
             }
         }
