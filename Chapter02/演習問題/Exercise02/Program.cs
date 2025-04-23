@@ -4,27 +4,24 @@ namespace Exercise02 {
     internal class Program {
         static void Main(string[] args) {
             Console.WriteLine("***変換アプリ***");
-            Console.WriteLine("1 : インチ から メートル");
-            Console.WriteLine("2 : メートル から インチ");
+            Console.WriteLine("1 : ヤード から メートル");
+            Console.WriteLine("2 : メートル から ヤード");
+
             Console.Write(">");
             int rule = int.Parse(Console.ReadLine());
 
-            Console.Write("はじめ : ");
-            int start = int.Parse(Console.ReadLine());
-            Console.Write("おわり : ");
-            int end = int.Parse(Console.ReadLine());
             if (rule == 1) {
-                for (int inch = start; inch <= end; inch++) {
-                    double meter = InchConverter.InchToMeter(inch);
-                    Console.WriteLine($"{inch}inch = {meter:0.0000}m");
+                Console.Write("変換前 ( ヤード ) : ");
+                double num = double.Parse(Console.ReadLine());
+                double meter = YardConverter.YardToMeter(num);
+                Console.WriteLine($"変換後 ( メートル ) : {meter:0.0000}");
 
-                }
             } else if (rule == 2) {
-                for (int meter = start; meter <= end; meter++) {
-                    double inch = InchConverter.MeterToInch(meter);
-                    Console.WriteLine($"{meter}m = {inch:0.0000}inch");
+                Console.Write("変換前 ( メートル ) : ");
+                double num = double.Parse(Console.ReadLine());
+                double yard = YardConverter.MeterToYard(num);
+                Console.WriteLine($"変換後( ヤード ) : {yard:0.0000}");
 
-                }
             }
         }
     }
