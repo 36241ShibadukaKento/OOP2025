@@ -3,14 +3,15 @@
 namespace Exercise02 {
     internal class Program {
         static void Main(string[] args) {
-            Console.WriteLine("1 : Inch から Meter");
-            Console.WriteLine("2 : Meter から Inch");
+            Console.WriteLine("***変換アプリ***");
+            Console.WriteLine("1 : インチ から メートル");
+            Console.WriteLine("2 : メートル から インチ");
             Console.Write(">");
             int rule = int.Parse(Console.ReadLine());
 
-            Console.Write("start : ");
+            Console.Write("はじめ : ");
             int start = int.Parse(Console.ReadLine());
-            Console.Write("end : ");
+            Console.Write("おわり : ");
             int end = int.Parse(Console.ReadLine());
             if (rule == 1) {
                 for (int inch = start; inch <= end; inch++) {
