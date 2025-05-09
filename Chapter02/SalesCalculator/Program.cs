@@ -3,9 +3,9 @@
 namespace SalesCalculator {
     internal class Program {
         static void Main(string[] args) {
-            SalesCounter sales = new SalesCounter(@"data\sales.csv");
-            IDictionary<string, int> amountsPerStre = sales.GetPerStoreSales();
-            foreach (KeyValuePair<string, int> obj in amountsPerStre) {
+            var sales = new SalesCounter(@"data\sales.csv");
+            var amountsPerStre = sales.GetPerStoreSales();
+            foreach (var obj in amountsPerStre) {
                 Console.WriteLine($"{obj.Key}{obj.Value}");
             }
         }
