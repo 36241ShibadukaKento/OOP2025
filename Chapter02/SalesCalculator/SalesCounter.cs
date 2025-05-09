@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SalesCalculator
-{   //売り上げ集計クラス
-    public class SalesCounter
-    {
+namespace SalesCalculator {   //売り上げ集計クラス
+    public class SalesCounter {
         private readonly List<Sale> _sales;
         //コンストラクタ
-        public SalesCounter(List<Sale>sales) {
+        public SalesCounter(List<Sale> sales) {
             _sales = sales;
         }
 
@@ -25,5 +23,26 @@ namespace SalesCalculator
             }
             return dict;
         }
+        //売り上げデータを読み込み、Saleオブジェクトのリストを返す
+        public static List<Sale> ReadSales(string fileRath) {
+            //売り上げデータを入れるリストオブジェクトを生成
+            List<Sale> sales = new List<Sale>();
+            //ファイルを一気に読み込み
+            string[] lines = File.ReadAllLines(fileRath);
+            //読み込んだ行数分繰り返し
+            foreach (var line in lines) {
+                String[] items = line.Split(',');
+                //Saleオブジェクトを生成
+                Sale sale = new Sale() {
+                    ShopName = items[0],
+                    ProductCategory = items[1],
+                    Amount = int.Parse(items[2])
+                };
+                sales.Add(sale);
+            }
+            return sales;
+
+        }
     }
+
 }
