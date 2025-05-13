@@ -13,12 +13,15 @@
         }
         //2 .1 .4
         private static void printSongs(Song[] songs) {
-            for (int cnt = 0; cnt < songs.Length; cnt++) {
-         
-                Console.WriteLine("Title : " + songs[cnt].Title + ",   Artist : " + songs[cnt].ArtistName + ",   PlayTime : " + TimeSpan.FromSeconds( songs[cnt].Length).ToString(@"m\:ss")); 
-            }
+            // for文を用いる方法 
+            // for (int cnt = 0; cnt < songs.Length; cnt++)  {
+            foreach (var song in songs) {
 
-            
+            //                 TimeSpan.変換元の単位 ( 引数 )   .ToString ( 書式設定 );
+                var timespan = TimeSpan.FromSeconds(song.Length).ToString ( @"m\:ss" );
+                Console.WriteLine($"Title : {song.Title},   Artist : {song.ArtistName},   PlayTime : {timespan}");
+
+            }  
         }
     }
 }
