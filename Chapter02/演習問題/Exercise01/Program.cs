@@ -9,10 +9,16 @@
                 new Song("Honesty", "Billy Joel", 231),
             　  new Song("I Will Always Love You", "Whitney Houston", 273),
             };
+            printSongs(songs);
         }
         //2 .1 .4
         private static void printSongs(Song[] songs) {
+            for (int cnt = 0; cnt < songs.Length; cnt++) {
+         
+                Console.WriteLine("Title : " + songs[cnt].Title + ",   Artist : " + songs[cnt].ArtistName + ",   PlayTime : " + TimeSpan.FromSeconds( songs[cnt].Length).ToString(@"m\:ss")); 
+            }
 
+            
         }
     }
 }
