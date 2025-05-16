@@ -7,7 +7,7 @@
             // Console.Write("カウントしたい数値 : ");
             //int CntNum = int.Parse(Console.ReadLine());
 
-            Console.WriteLine(Count(numbers, delegate (int n) { return n % 2 == 0; }));
+            Console.WriteLine(Count(numbers, n => n <=5 && n < 10 ));
 
 
         }
