@@ -2,27 +2,18 @@
     internal class Program {
 
         static void Main(string[] args) {
-            var numbers = new[] { 5, 3, 9, 6, 7, 5, 8, 1, 0, 5, 10, 4 };
-
-            // Console.Write("カウントしたい数値 : ");
-            //int CntNum = int.Parse(Console.ReadLine());
-
-            Console.WriteLine(Count(numbers, n => n <=5 && n < 10 ));
-
-
+            var cities = new List<string> {
+              "Tokyo",
+              "New Delhi",
+              "Bangkok",
+              "London",
+              "Paris",
+              "Berlin",
+              "Canberra",
+              "Hong Kong",
+            };
+            var upperList = cities.ConvertAll(s => s.ToUpper());
+            upperList.ForEach(s => Console.WriteLine(s));
         }
-
-        static int Count(int[] numbers , Func<int,bool>　judge) {
-            
-            var count = 0;
-            foreach (var n in numbers) {
-                //引数で受け取ったメソッドを呼び出す
-                if (judge (n)== true) {
-                    count++;
-                }
-            }
-            return count;
-        }
-
     }
 }
