@@ -1,29 +1,18 @@
 ﻿namespace Section01 {
     internal class Program {
 
-        public delegate bool Judgement(int value);//デリケートの宣言
         static void Main(string[] args) {
-            // Console.Write("対象にする配列");
             var numbers = new[] { 5, 3, 9, 6, 7, 5, 8, 1, 0, 5, 10, 4 };
 
             // Console.Write("カウントしたい数値 : ");
             //int CntNum = int.Parse(Console.ReadLine());
 
-            Judgement judge = IsEven;
-            Console.WriteLine(Count(numbers, judge));
+            Console.WriteLine(Count(numbers, delegate (int n) { return n % 2 == 0; }));
 
 
         }
-        
-        //メソッドへ渡す処理
-        static bool IsEven (int n) {
-            return n % 2 == 0;
-        }
-        static bool IsNotEven (int n) {
-            return n % 2 == 1;
-        }
 
-        static int Count(int[] numbers , Judgement　judge) {
+        static int Count(int[] numbers , Func<int,bool>　judge) {
             
             var count = 0;
             foreach (var n in numbers) {
