@@ -1,4 +1,6 @@
 ﻿
+using System.Diagnostics.Tracing;
+
 namespace Exercise02 {
     internal class Program {
         static void Main(string[] args) {
@@ -26,7 +28,7 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_1(List<string> names) {
-            Console.WriteLine("都市名を入力");
+            Console.Write("都市名を入力 : ");
             while (true) {
                 var name = Console.ReadLine();
                 if (string.IsNullOrEmpty(name)) {
@@ -40,7 +42,11 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_2(List<string> names) {
-            
+            // Console.Write("数えたい文字 : ");
+            // string word = Console.ReadLine();
+            string word = "o";
+             int countword = names.Count(i => i.Contains(word));
+            Console.WriteLine(countword);
         }
 
         private static void Exercise2_3(List<string> names) {
