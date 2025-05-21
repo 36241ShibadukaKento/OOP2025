@@ -32,20 +32,25 @@ namespace Exercise01 {
 
         private static void Exercise2(List<int> numbers) {
             numbers.ForEach(i => Console.WriteLine (i/2.0) );
+            //foreach (var i in numbers) {
+            //    Console.WriteLine( i / 2.0);
+            //}
         }
 
         private static void Exercise3(List<int> numbers) {
-            var hightNum = numbers.Where(i => i >= 50 );
-            foreach (var i in hightNum) {
-                Console.WriteLine(i);
-            }
+            //var hightNum = numbers.Where(i => i >= 50);
+            //foreach (var i in hightNum) {
+            //    Console.WriteLine(i);
+            //}
+            numbers.Where(n => n >= 50).ToList().ForEach( n => Console.WriteLine(n));
         }
 
         private static void Exercise4(List<int> numbers) {
-            var doubleNum = numbers.Select(i => i*2).ToList();
-            foreach (var i in doubleNum) {
-                Console.WriteLine(i);
-            }
+            //var doubleNum = numbers.Select(i => i*2).ToList();
+            //foreach (var i in doubleNum) {
+            //    Console.WriteLine(i);
+            //}
+            numbers.Select(n => n * 2).ToList().ForEach(Console.WriteLine);
         }
     }
 }
