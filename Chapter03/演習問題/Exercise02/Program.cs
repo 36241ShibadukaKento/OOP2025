@@ -42,19 +42,26 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_2(List<string> names) {
-            // Console.Write("数えたい文字 : ");
-            // string word = Console.ReadLine();
             string word = "o";
-             int countword = names.Count(i => i.Contains(word));
-            Console.WriteLine(countword);
+            int countWord = names.Count(i => i.Contains(word));
+            Console.WriteLine(countWord);
         }
 
         private static void Exercise2_3(List<string> names) {
-
+            string word = "o";
+            var includeWord = names.Where(i => i.Contains(word)).ToArray();
+            foreach (var cnt in includeWord) {
+                Console.WriteLine(cnt);
+            }
         }
 
         private static void Exercise2_4(List<string> names) {
-
+            string word = "B";
+            var obj = names.Where(i => i.StartsWith(word))
+               .Select(s => new { s, s.Length });
+            foreach (var cnt in obj) {
+                Console.WriteLine(cnt.s + ":" + cnt.Length);
+            }
         }
     }
 }
