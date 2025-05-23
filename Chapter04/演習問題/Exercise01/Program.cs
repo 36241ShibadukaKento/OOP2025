@@ -21,24 +21,43 @@ namespace Exercise01 {
             foreach (var cnt in includeS) {
                 Console.WriteLine(cnt);
             }
+            Console.WriteLine();
 
             for (int cnt = 0; cnt < includeS.Count; cnt++) {
                 Console.WriteLine(includeS[cnt]);
             }
+            Console.WriteLine();
 
             int whileCnt = 0;
-            while (true) {
+            while (whileCnt < includeS.Count) {
                 Console.WriteLine(includeS[whileCnt]);
                 whileCnt++;
-                if (whileCnt >= includeS.Count) {
-                    break;
-                }
             }
         }
 
-        private static void Exercise2(List<string> langs) {
 
+        private static void Exercise2(List<string> langs) {
+            foreach (var cnt in langs) {
+                if (cnt.Contains("S"))
+                    Console.WriteLine(cnt);
+
+            }
+            Console.WriteLine();
+
+            for (int cnt = 0; cnt < langs.Count; cnt++) {
+                if (langs[cnt].Contains("S"))
+                    Console.WriteLine(langs[cnt]);
+            }
+            Console.WriteLine();
+
+            int whileCnt = 0;
+            while (whileCnt < langs.Count) {
+                if (langs[whileCnt].Contains("S"))
+                    Console.WriteLine(langs[whileCnt]);
+                whileCnt++;
+            }
         }
+
 
         private static void Exercise3(List<string> langs) {
 
