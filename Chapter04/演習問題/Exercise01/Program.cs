@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 namespace Exercise01 {
     internal class Program {
         static void Main(string[] args) {
+            
             List<string> langs = [
                 "C#", "Java", "Ruby", "PHP", "Python", "TypeScript",
                 "JavaScript", "Swift", "Go",
@@ -40,27 +41,15 @@ namespace Exercise01 {
             foreach (var cnt in langs) {
                 if (cnt.Contains("S"))
                     Console.WriteLine(cnt);
-
             }
             Console.WriteLine();
-
-            for (int cnt = 0; cnt < langs.Count; cnt++) {
-                if (langs[cnt].Contains("S"))
-                    Console.WriteLine(langs[cnt]);
-            }
-            Console.WriteLine();
-
-            int whileCnt = 0;
-            while (whileCnt < langs.Count) {
-                if (langs[whileCnt].Contains("S"))
-                    Console.WriteLine(langs[whileCnt]);
-                whileCnt++;
-            }
         }
 
 
         private static void Exercise3(List<string> langs) {
-
+            //2行で完成させる
+            var lang = langs.Find(s => s.Length >= 10) ?? ("unknown");
+            Console.WriteLine(lang);
         }
     }
 }
