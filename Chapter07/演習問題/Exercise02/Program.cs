@@ -36,9 +36,9 @@ namespace Exercise02 {
         }
         #endregion 
         private static void Exercise1(List<Book> books) {
-            var book = books.Where(s => s.Title == "ワンダフル・C#ライフ");
-            foreach (var i in book) {
-                Console.WriteLine(i.Price + " " + i.Pages);
+            var book = books.FirstOrDefault(s => s.Title == "ワンダフル・C#ライフ");
+            if (book is not null) {
+                Console.WriteLine("{0}{1}",book.Price,book.Pages);
             }
         }
 
@@ -51,10 +51,12 @@ namespace Exercise02 {
         }
 
         private static void Exercise4(List<Book> books) {
-            
+            var over4000 = books.FirstOrDefault(s=>s.Price >=4000);
+            Console.WriteLine(over4000.Title );
         }
 
         private static void Exercise5(List<Book> books) {
+       
         }
 
         private static void Exercise6(List<Book> books) {
