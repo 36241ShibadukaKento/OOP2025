@@ -47,9 +47,11 @@ namespace Exercise02 {
         }
 
         private static void Exercise3(List<Book> books) {
+           Console.WriteLine((int)books.Where(s => s.Title.Contains("C#")).Average(s=>s.Pages));
         }
 
         private static void Exercise4(List<Book> books) {
+            
         }
 
         private static void Exercise5(List<Book> books) {
