@@ -51,16 +51,20 @@ namespace Exercise02 {
         }
 
         private static void Exercise4(List<Book> books) {
-            var over4000 = books.FirstOrDefault(s=>s.Price >=4000);
-            Console.WriteLine(over4000.Title );
+            var over4000yen = books.FirstOrDefault(s=>s.Price >=4000);
+            Console.WriteLine(over4000yen.Title );
         }
 
         private static void Exercise5(List<Book> books) {
-            var under4000 = books.Where(s=> 4000 >= s.Price).MaxBy(s => s.Pages);
-            Console.WriteLine(under4000.Pages );
+            var under4000yen = books.Where(s=> 4000 >= s.Price).MaxBy(s => s.Pages);
+            Console.WriteLine(under4000yen.Pages );
         }
 
         private static void Exercise6(List<Book> books) {
+            var descPriceOver400p = books.Where(s=>s.Pages>=400).OrderByDescending(s => s.Price);
+            foreach (var i in descPriceOver400p) {
+                Console.WriteLine(i.Title + " : " + i.Price);
+            }
         }
 
         private static void Exercise7(List<Book> books) {
