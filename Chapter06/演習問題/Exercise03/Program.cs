@@ -1,5 +1,6 @@
 ﻿
 using System.Security.Authentication;
+using System.Text;
 
 namespace Exercise03 {
     internal class Program {
@@ -26,8 +27,8 @@ namespace Exercise03 {
         }
 
         private static void Exercise1(string text) {
-            Console.WriteLine("空白数:" + text.Count(Char.IsWhiteSpace));
-         // Console.WriteLine("空白数:" + text.Count(s => s == ' '));
+            // Console.WriteLine("空白数:" + text.Count(Char.IsWhiteSpace));
+            Console.WriteLine("空白数:" + text.Count(s => s == ' '));
         }
 
         private static void Exercise2(string text) {
@@ -35,6 +36,14 @@ namespace Exercise03 {
         }
 
         private static void Exercise3(string text) {         // やらなくていい
+            string[] array = text.Split(' ');
+             var sb =new StringBuilder();
+            foreach (var i in array) {
+                sb.Append(i + " ");
+            }
+            var ReText = sb.ToString().TrimEnd();
+
+            Console.WriteLine(ReText + ".");
         }
 
         private static void Exercise4(string text) {
@@ -43,11 +52,10 @@ namespace Exercise03 {
         }
 
         private static void Exercise5(string text) {
-            string[] words = text.Split(' ');
+            var words = text.Split(' ').Where(s => s.Length <= 4);
             foreach (var i in words) {
-                if(4 >= i.Length) {
-                    Console.WriteLine(i);
-                }  
+                Console.WriteLine(i);
+
             }
         }
     }
