@@ -1,4 +1,5 @@
 ﻿
+using System.Globalization;
 using System.Security.Authentication;
 using System.Text;
 
@@ -22,7 +23,8 @@ namespace Exercise03 {
             Console.WriteLine("6.3.5");
             Exercise5(text);
 
-
+            Console.WriteLine("6.3.99");
+            Exercise6(text);
 
         }
 
@@ -35,9 +37,9 @@ namespace Exercise03 {
             Console.WriteLine(text.Replace("big", "small"));
         }
 
-        private static void Exercise3(string text) {         // やらなくていい
+        private static void Exercise3(string text) {
             string[] array = text.Split(' ');
-             var sb =new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var i in array) {
                 sb.Append(i + " ");
             }
@@ -58,5 +60,34 @@ namespace Exercise03 {
 
             }
         }
+
+        private static void Exercise6(string text) {
+
+            var str = text.ToLower().Replace(" ","");
+            for (char C = 'a';  C <= 'z'; C++) {
+                Console.WriteLine(C + " : " + str.Count(c => c == C));
+            }
+            
+            /*  配列を使ったやり方 
+            var array = Enumerable.Repeat(0, 26).ToArray();
+            foreach (var alph in str) {
+                array[alph - 'a']++;
+            }
+            for (char ch = 'a'; ch < 'z'; ch++) {
+                Console.WriteLine($"{ch}:{ array[ch -'a']}");
+            }
+
+
+                辞書を使ったやり方
+            var alphDicCount = Enumerable.Range('a', 26).ToDictionary(num =>((char)num).ToString() ,num => 0 );
+            //foreach (var alph in str) {
+            //    alphDicCount[alph.ToString()]++; 
+            //}
+            //foreach (var item in alphDicCount) {
+            //    Console.WriteLine($"{item.Key} : {item.Value}");
+            }                          */
+
+        }
     }
 }
+
