@@ -30,14 +30,14 @@ namespace Exercise02 {
         }
         
         //5.2.3
-        public static YearMonth FindFirst21C(YearMonth[] ymCollection) {
+        public static YearMonth? FindFirst21C(YearMonth[] ymCollection) {
             foreach (var i in ymCollection) {
-                if(i.Is21Century == true) {
+                if(i.Is21Century ) {
                     return i ;
                 }   
             }
             return null;
-            
+
         }
 
         private static void Exercise4(YearMonth[] ymCollection) {
@@ -49,7 +49,10 @@ namespace Exercise02 {
         }
 
         private static void Exercise5(YearMonth[] ymCollection) {
-            
+            var nexYearManth = ymCollection.Select(s=>s.AddOneMonth());
+            foreach (var i in nexYearManth) {
+                Console.WriteLine(i);
+            }
         }
     }
 }
