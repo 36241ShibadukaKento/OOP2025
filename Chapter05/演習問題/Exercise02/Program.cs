@@ -1,7 +1,8 @@
 ﻿using Exercise01;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Exercise02 {
-    public class Program {
+    public record Program {
         static void Main(string[] args) {
             // 5.2.1
             var ymCollection = new YearMonth[] {
@@ -11,6 +12,7 @@ namespace Exercise02 {
                 new YearMonth(2000, 9),
                 new YearMonth(2000, 12),
             };
+
 
             Console.WriteLine("5.2.2");
             Exercise2(ymCollection);
