@@ -15,11 +15,8 @@ namespace Exercise01 {
             Month = m;
         }
         //5.1.2
-        public bool Is21Century {
-            get {
-                return 2000 < Year && Year < 2100;
-            }
-        }
+        public bool Is21Century => 2000 < Year && Year <= 2100;
+
         //5.1.3
         public YearMonth AddOneMonth() {
             if(Month == 12) {
@@ -29,6 +26,6 @@ namespace Exercise01 {
             }
         }
         //5.1.4
-        public override string ToString() => Year + "年" + Month + "月";
+        public override string ToString() => $"<< { Year }年 { Month }月 >>";
     }
 }
