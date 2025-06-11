@@ -19,18 +19,32 @@ namespace Exercise01 {
             foreach (var i in text.ToUpper().OrderBy(s => s)) {
                 if ('A' <= i && i <= 'Z') {
                     if (strDict.ContainsKey(i)) {
-                        strDict[i]++; //同じ文字が出現した場合
+                        strDict[i]++; 
                     } else {
-                        strDict[i] = 1; //新しい文字が出現した場合
+                        strDict[i] = 1; 
                     }
                 }
             }
-            foreach (var i in strDict) {
-                Console.WriteLine(i);
+            foreach (var (key,Value) in strDict) {
+                Console.WriteLine(key + " : " + Value);
             }
         }
 
         private static void Exercise2(string text) {
+            var strDict = new SortedDictionary<char, int>();
+
+            foreach (var i in text.ToUpper().OrderBy(s => s)) {
+                if ('A' <= i && i <= 'Z') {
+                    if (strDict.ContainsKey(i)) {
+                        strDict[i]++;
+                    } else {
+                        strDict[i] = 1;
+                    }
+                }
+            }
+            foreach (var (key, Value) in strDict) {
+                Console.WriteLine(key + " : " + Value);
+            }
         }
     }
 }
