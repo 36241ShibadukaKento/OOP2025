@@ -16,7 +16,7 @@ namespace Exercise01 {
         private static void Exercise1(string text) {
             var strDict = new Dictionary<char, int>();
 
-            foreach (var i in text.ToUpper().OrderBy(s => s)) {
+            foreach (var i in text.ToUpper()) {
                 if ('A' <= i && i <= 'Z') {
                     if (strDict.ContainsKey(i)) {
                         strDict[i]++; 
@@ -25,15 +25,15 @@ namespace Exercise01 {
                     }
                 }
             }
-            foreach (var (key,Value) in strDict) {
-                Console.WriteLine(key + " : " + Value);
+            foreach (var i in strDict.OrderBy(s => s.Key)) {
+                Console.WriteLine(i.Key + " : " + i.Value);
             }
         }
 
         private static void Exercise2(string text) {
             var strDict = new SortedDictionary<char, int>();
 
-            foreach (var i in text.ToUpper().OrderBy(s => s)) {
+            foreach (var i in text.ToUpper()) {
                 if ('A' <= i && i <= 'Z') {
                     if (strDict.ContainsKey(i)) {
                         strDict[i]++;
