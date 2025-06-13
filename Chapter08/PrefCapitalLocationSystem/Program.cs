@@ -26,16 +26,12 @@
                 if (prefOfficeDict.ContainsKey(pref)) {
                     Console.WriteLine("上書きしますか？(Y/N)");
                     string? judge = Console.ReadLine();
-                    if(judge == "Y") {
-         
-                    } else {
-                        continue;
-                    }
+                    if(judge == "N")  continue;      
                 }
 
 
                 //県庁所在地登録処理
-                prefOfficeDict[pref] = prefCaptalLocation??"";
+                prefOfficeDict[pref] = prefCaptalLocation??"未入力";
 
                 Console.WriteLine();//改行
             }
@@ -75,7 +71,7 @@
         //一覧表示処理
         private static void allDisp() {
             foreach (var i in prefOfficeDict) {
-                Console.WriteLine(i);
+                Console.WriteLine("{0}の県庁所在地は{1}です。",i.Key,i.Value);
             }
         }
 
@@ -83,7 +79,8 @@
         private static void searchPrefCaptalLocation() {
             Console.Write("都道府県:");
             String? searchPref = Console.ReadLine();
-            Console.Write("県庁所在地:" + prefOfficeDict[searchPref??""]); 
+            if (searchPref is null) return;
+            Console.Write(searchPref + "の県庁所在地は" + prefOfficeDict[searchPref?? "未入力"] + "です。"); 
         }
     }
 }
