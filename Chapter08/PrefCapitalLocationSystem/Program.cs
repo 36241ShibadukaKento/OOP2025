@@ -54,7 +54,7 @@
 
 
                     case "9"://無限ループを抜ける
-
+                        endFlag = true;
                         break;
                 }
             }
@@ -83,6 +83,7 @@
         private static void searchPrefCaptalLocation() {
             Console.Write("都道府県:");
             String? searchPref = Console.ReadLine();
+            Console.Write("県庁所在地:" + prefOfficeDict[searchPref??""]); 
         }
     }
 }
