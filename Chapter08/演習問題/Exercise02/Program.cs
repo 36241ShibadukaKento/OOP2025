@@ -1,4 +1,6 @@
-﻿namespace Exercise02 {
+﻿using System.Net.NetworkInformation;
+
+namespace Exercise02 {
     internal class Program {
         static void Main(string[] args) {
             // コンストラクタの呼び出し
@@ -20,6 +22,9 @@
                 Console.WriteLine("削除できません");
             }
             Console.WriteLine();
+
+            //8.2.4
+            var query = abbrs.GetAll().Where(s => s.Key.Length == 3);
 
 
 
