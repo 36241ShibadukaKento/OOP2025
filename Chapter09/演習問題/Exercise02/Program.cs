@@ -10,7 +10,7 @@ namespace Exercise02 {
         }
         // 9.2.1を呼び出すテスト用メソッド
         private static void Exercise1_1() {
-            var dt = new DateTime(2024, 7, 1);
+            var dt = DateTime.Today;
             foreach (var dayofweek in Enum.GetValues(typeof(DayOfWeek))) {
                 Console.Write("{0:yyyy/MM/dd}の次週の{1}: ", dt, (DayOfWeek)dayofweek);
                 Console.WriteLine("{0:yyyy/MM/dd(ddd)}", NextWeek(dt, (DayOfWeek)dayofweek));
@@ -19,7 +19,7 @@ namespace Exercise02 {
 
         // 9.2.1を呼び出すテスト用メソッド
         private static void Exercise1_2() {
-            var dt = new DateTime(2024, 8, 29);
+            var dt = new DateTime(2024, 12, 29);
             foreach (var dayofweek in Enum.GetValues(typeof(DayOfWeek))) {
                 Console.Write("{0:yyyy/MM/dd}の次週の{1}: ", dt, (DayOfWeek)dayofweek);
                 Console.WriteLine("{0:yyyy/MM/dd(ddd)}", NextWeek(dt, (DayOfWeek)dayofweek));
@@ -29,9 +29,7 @@ namespace Exercise02 {
         // 9.2.1【ここにプログラムを作成する】
         static DateTime NextWeek(DateTime date, DayOfWeek dayOfWeek) {
             var days = (int)dayOfWeek - (int)(date.DayOfWeek);
-            days += 7;
-
-            return date.AddDays(days);
+            return date.AddDays(days + 7);
         }
 
         private static void Exercise2() {
@@ -44,8 +42,8 @@ namespace Exercise02 {
         // 9.2.2【ここにプログラムを作成する】
        static int GetAge(DateOnly birthday, DateOnly targetDay) {
             var age = targetDay.Year - birthday.Year;
-            if (targetDay.Month <= birthday.Month && targetDay.Day < birthday.Day) {
-                age-= 1;
+            if (targetDay < birthday.AddYears(age)) {
+                age--;
             }
             return age;
        }
