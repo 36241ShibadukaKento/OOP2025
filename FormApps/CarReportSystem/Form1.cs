@@ -3,10 +3,15 @@ using System.ComponentModel;
 using System.Data.Common;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
+
+        //設定クラスのインスタンスを生成
+        Settings settings = new Settings();
 
         public Form1() {
             InitializeComponent();
@@ -186,15 +191,30 @@ namespace CarReportSystem {
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
             if (cdColor.ShowDialog() == DialogResult.OK) {
                 this.BackColor = cdColor.Color;
+                //設定ファイルに色情報を保存
+                settings.MainFormBackColor = cdColor.Color.ToArgb();    //背景色を設定インスタンスへ設定
             }
         }
 
-        //一覧表示を交互に色変更
+        //フォームを開くと呼ばれる
         private void Form1_Load(object sender, EventArgs e) {
             inputItmsAllClear();
-            //交互に変更
+            //交互に色を変更
             dgvRecord.DefaultCellStyle.BackColor = Color.LightGray;
             dgvRecord.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke;
+            try {
+                //設定インスタンスから背景色を呼び出す
+                using (var reader = XmlReader.Create("settings.xml")) {
+                    var serializer = new XmlSerializer(typeof(Settings));
+                    var color = serializer.Deserialize(reader) as Settings;
+                    settings = color ?? new Settings();
+                    this.BackColor = Color.FromArgb(settings.MainFormBackColor);
+                }
+            }
+            catch (Exception) {
+
+             
+            } 
         }
 
         //ファイルオープン
@@ -246,15 +266,25 @@ namespace CarReportSystem {
                 }
             }
         }
-       
+
         /* ファイル > 保存のイベントパンドラ*/
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
             reportSaveFile();
         }
-       
+
         /* ファイル > 開くのイベントパンドラ*/
         private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
             reportOpenFile();
+        }
+
+        //フォームが閉じたら呼ばれる
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            //設定ファイルへ色情報を保存する処理(シリアル化)p284
+            //ファイル名:settings.xml
+            using (var Settings = XmlWriter.Create("settings.xml")) {
+                var serializer = new XmlSerializer(settings.GetType());
+                serializer.Serialize(Settings, settings);
+            }
         }
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarReportSystem
 {
-    class Settings
+    public class Settings
     {
+        //設定した色の情報を保存
+        public int MainFormBackColor { get; set; }
     }
 }
