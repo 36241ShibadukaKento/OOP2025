@@ -211,7 +211,7 @@ namespace CarReportSystem {
                         var color = serializer.Deserialize(reader) as Settings;
                         settings = color ?? Settings.getInstance();
                         this.BackColor = Color.FromArgb(settings.MainFormBackColor);
-                    
+
                     }
                 }
                 catch (Exception ex) {
