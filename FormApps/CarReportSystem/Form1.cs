@@ -202,19 +202,26 @@ namespace CarReportSystem {
             //交互に色を変更
             dgvRecord.DefaultCellStyle.BackColor = Color.LightGray;
             dgvRecord.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke;
-            try {
-                //設定インスタンスから背景色を呼び出す
-                using (var reader = XmlReader.Create("settings.xml")) {
-                    var serializer = new XmlSerializer(typeof(Settings));
-                    var color = serializer.Deserialize(reader) as Settings;
-                    settings = color ?? new Settings();
-                    this.BackColor = Color.FromArgb(settings.MainFormBackColor);
+            //ファイルが存在するか調べる
+            if (File.Exists("settings.xml")) {
+                try {
+                    //設定インスタンスから背景色を呼び出す
+                    using (var reader = XmlReader.Create("settings.xml")) {
+                        var serializer = new XmlSerializer(typeof(Settings));
+                        var color = serializer.Deserialize(reader) as Settings;
+                        settings = color ?? new Settings();
+                        this.BackColor = Color.FromArgb(settings.MainFormBackColor);
+                    
+                    }
                 }
-            }
-            catch (Exception) {
+                catch (Exception ex) {
+                    tsslbMessage.Text = "設定ファイル読み込みエラー";
+                    MessageBox.Show(ex.Message);
 
-             
-            } 
+                }
+            } else {
+                tsslbMessage.Text = "設定ファイルがありません";
+            }
         }
 
         //ファイルオープン
@@ -281,9 +288,15 @@ namespace CarReportSystem {
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             //設定ファイルへ色情報を保存する処理(シリアル化)p284
             //ファイル名:settings.xml
-            using (var Settings = XmlWriter.Create("settings.xml")) {
-                var serializer = new XmlSerializer(settings.GetType());
-                serializer.Serialize(Settings, settings);
+            try {
+                using (var Settings = XmlWriter.Create("settings.xml")) {
+                    var serializer = new XmlSerializer(settings.GetType());
+                    serializer.Serialize(Settings, settings);
+                }
+            }
+            catch (Exception ex) {
+                tsslbMessage.Text = "ファイル書き出しエラー";
+                MessageBox.Show(ex.Message);
             }
         }
     }
