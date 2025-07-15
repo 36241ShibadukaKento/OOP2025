@@ -87,7 +87,7 @@ namespace Exercise01 {
             };
             var text = File.ReadAllText(filePath);
             var novelist = JsonSerializer.Deserialize<Employee[]>(text, options);
-            return novelist;
+            return novelist ?? [];
         }
     }
 
