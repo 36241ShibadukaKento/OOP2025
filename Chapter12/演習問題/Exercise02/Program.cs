@@ -1,5 +1,6 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -21,6 +22,9 @@ namespace Exercise02 {
                 WriteIndented = true,
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                //36行目と同様の意味
+                //NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals 
+                //               | JsonNumberHandling.AllowReadingFromString,
             };
             var text = JsonSerializer.Deserialize<Novelist>(jsonString, options);
             return text;
@@ -29,8 +33,10 @@ namespace Exercise02 {
     }
 
     public record Novelist {
+        [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
         public int Id { get; init; }
         public string Name { get; init; } = string.Empty;
+        [JsonPropertyName("birth")]
         public DateTime Birthday { get; init; }
         public string[] Masterpieces { get; init; } = [];
     }
