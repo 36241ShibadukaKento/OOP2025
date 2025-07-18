@@ -12,28 +12,36 @@ namespace RssReader {
         }
 
         private async void btRssGet_Click(object sender, EventArgs e) {
+            try {
+                using (var hc = new HttpClient()) {
+                    XDocument xdoc = XDocument
+                    .Parse(await hc.GetStringAsync(tbUrl.Text));
 
-            using (var hc = new HttpClient()) {
-                XDocument xdoc = XDocument
-                .Parse(await hc.GetStringAsync(tbUrl.Text));
+                    //RSSを解析して必要な要素を取得
+                    items = xdoc.Root.Descendants("item")
+                         .Select(x => new ItemData {
+                             Title = (string?)x.Element("title"),
+                             Link = (string?)x.Element("link"),
+                         }).ToList();
+                    setCombo(tbUrl.Text);
+                }
 
-                //RSSを解析して必要な要素を取得
-                items = xdoc.Root.Descendants("item")
-                     .Select(x => new ItemData {
-                         Title = (string?)x.Element("title"),
-                         Link = (string?)x.Element("link"),
-                     }).ToList();
-                setCombo(tbUrl.Text);
+                //リストボックスに表示
+                lbTitles.Items.Clear();
+                items.ForEach(item => lbTitles.Items.Add(item.Title));
             }
-
-            //リストボックスに表示
-            lbTitles.Items.Clear();
-            items.ForEach(item => lbTitles.Items.Add(item.Title));
+            catch (Exception) {
+                return;
+            }
         }
 
         //タイトルからページの表示
         private void lbTitles_Click(object sender, EventArgs e) {
+            if (items is null || lbTitles.SelectedItem is null) {
+                return;
+            } else {
                 wvRssLink.Source = new Uri(items[lbTitles.SelectedIndex].Link);
+            }
         }
 
         //ページを1つ戻す
@@ -55,6 +63,10 @@ namespace RssReader {
                 //未登録の場合登録
                 tbUrl.Items.Add(pageName);
             }
+        }
+
+        private void wvReadCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e) {
+
         }
     }
 }

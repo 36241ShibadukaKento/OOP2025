@@ -79,6 +79,7 @@
             wvRssLink.Size = new Size(724, 305);
             wvRssLink.TabIndex = 3;
             wvRssLink.ZoomFactor = 1D;
+            wvRssLink.NavigationCompleted += wvReadCompleted;
             // 
             // back
             // 
@@ -115,7 +116,6 @@
             Text = "RSSリーダ";
             ((System.ComponentModel.ISupportInitialize)wvRssLink).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
