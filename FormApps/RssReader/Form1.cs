@@ -32,8 +32,15 @@ namespace RssReader {
 
         //タイトルからページの表示
         private void lbTitles_Click(object sender, EventArgs e) {
-            int listNum = lbTitles.SelectedIndex;
-            webView21.Source = new Uri(items[listNum].Link);
+            wvRssLink.Source = new Uri(items[ lbTitles.SelectedIndex ].Link);
+        }
+
+        private void back_Click(object sender, EventArgs e) {
+            if (this.wvRssLink != null && this.wvRssLink.CanGoBack) this.wvRssLink.GoBack();
+        }
+
+        private void advance_Click(object sender, EventArgs e) {
+            if (this.wvRssLink != null && this.wvRssLink.CanGoForward) this.wvRssLink.GoForward();
         }
     }
 }
