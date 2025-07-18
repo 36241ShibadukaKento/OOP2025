@@ -23,6 +23,7 @@ namespace RssReader {
                          Title = (string?)x.Element("title"),
                          Link = (string?)x.Element("link"),
                      }).ToList();
+                setCombo(tbUrl.Text);
             }
 
             //リストボックスに表示
@@ -32,15 +33,28 @@ namespace RssReader {
 
         //タイトルからページの表示
         private void lbTitles_Click(object sender, EventArgs e) {
-            wvRssLink.Source = new Uri(items[ lbTitles.SelectedIndex ].Link);
+                wvRssLink.Source = new Uri(items[lbTitles.SelectedIndex].Link);
         }
 
+        //ページを1つ戻す
         private void back_Click(object sender, EventArgs e) {
             if (this.wvRssLink != null && this.wvRssLink.CanGoBack) this.wvRssLink.GoBack();
         }
 
+        //ページを1つ進める
         private void advance_Click(object sender, EventArgs e) {
             if (this.wvRssLink != null && this.wvRssLink.CanGoForward) this.wvRssLink.GoForward();
+        }
+
+        //コンボボックスに検索履歴を表示
+        private void setCombo(string pageName) {
+            //既に登録済みか確認
+            if (tbUrl.Items.Contains(pageName) || pageName == "") {
+
+            } else {
+                //未登録の場合登録
+                tbUrl.Items.Add(pageName);
+            }
         }
     }
 }
