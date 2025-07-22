@@ -66,30 +66,22 @@ namespace RssReader {
         }
 
 
-
+        //ページが切り替わるときに呼ばれる
         private void wvRssLink_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e) {
             checkMoves();
         }
 
         //マスク処理
         private void checkMoves() {
-           if( back.Enabled = wvRssLink.CanGoBack) {
-                back.Enabled = true;
-            } else {
-                back.Enabled = false;
-            }
-           if (advance.Enabled = wvRssLink.CanGoForward) {
-                advance.Enabled = true;
-            } else {
-                advance.Enabled = false;
-            }
-
+            back.Enabled = wvRssLink.CanGoBack;
+            advance.Enabled = wvRssLink.CanGoForward;
         }
 
         //アプリが起動したときに呼ばれる
         private void Form1_Load(object sender, EventArgs e) {
             back.Enabled = false;
             advance.Enabled = false;
+
         }
     }
 }
