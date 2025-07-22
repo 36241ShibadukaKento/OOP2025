@@ -23,7 +23,7 @@ namespace RssReader {
                              Title = (string?)x.Element("title"),
                              Link = (string?)x.Element("link"),
                          }).ToList();
-                    setCombo(tbUrl.Text);
+
                 }
 
                 //リストボックスに表示
@@ -54,7 +54,7 @@ namespace RssReader {
             if (this.wvRssLink != null && this.wvRssLink.CanGoForward) this.wvRssLink.GoForward();
         }
 
-        //コンボボックスに検索履歴を表示
+        //コンボボックスにお気に入りを追加
         private void setCombo(string pageName) {
             //既に登録済みか確認
             if (tbUrl.Items.Contains(pageName) || pageName == "") {
@@ -65,8 +65,31 @@ namespace RssReader {
             }
         }
 
-        private void wvReadCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e) {
 
+
+        private void wvRssLink_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e) {
+            checkMoves();
+        }
+
+        //マスク処理
+        private void checkMoves() {
+           if( back.Enabled = wvRssLink.CanGoBack) {
+                back.Enabled = true;
+            } else {
+                back.Enabled = false;
+            }
+           if (advance.Enabled = wvRssLink.CanGoForward) {
+                advance.Enabled = true;
+            } else {
+                advance.Enabled = false;
+            }
+
+        }
+
+        //アプリが起動したときに呼ばれる
+        private void Form1_Load(object sender, EventArgs e) {
+            back.Enabled = false;
+            advance.Enabled = false;
         }
     }
 }

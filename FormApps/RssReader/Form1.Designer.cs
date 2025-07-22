@@ -60,9 +60,9 @@
             lbTitles.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
             lbTitles.FormattingEnabled = true;
             lbTitles.ItemHeight = 20;
-            lbTitles.Location = new Point(12, 67);
+            lbTitles.Location = new Point(12, 103);
             lbTitles.Name = "lbTitles";
-            lbTitles.Size = new Size(724, 204);
+            lbTitles.Size = new Size(724, 184);
             lbTitles.TabIndex = 2;
             lbTitles.Click += lbTitles_Click;
             // 
@@ -74,12 +74,13 @@
             wvRssLink.CreationProperties = null;
             wvRssLink.DefaultBackgroundColor = Color.White;
             wvRssLink.ForeColor = Color.Black;
-            wvRssLink.Location = new Point(12, 293);
+            wvRssLink.Location = new Point(12, 302);
             wvRssLink.Name = "wvRssLink";
-            wvRssLink.Size = new Size(724, 305);
+            wvRssLink.Size = new Size(724, 296);
             wvRssLink.TabIndex = 3;
             wvRssLink.ZoomFactor = 1D;
-            wvRssLink.NavigationCompleted += wvReadCompleted;
+
+            wvRssLink.SourceChanged += wvRssLink_SourceChanged;
             // 
             // back
             // 
@@ -114,6 +115,7 @@
             Controls.Add(tbUrl);
             Name = "Form1";
             Text = "RSSリーダ";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)wvRssLink).EndInit();
             ResumeLayout(false);
         }
