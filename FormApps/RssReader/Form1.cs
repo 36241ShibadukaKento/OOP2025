@@ -24,6 +24,7 @@ namespace RssReader {
             back.Enabled = false;
             advance.Enabled = false;
 
+            //コンボボックスの初期設定
             cbUrl.DataSource = urlDict.Select(k => k.Key).ToList();
             cbUrl.Text = string.Empty;
         }
@@ -47,8 +48,11 @@ namespace RssReader {
                 //リストボックスに表示
                 lbTitles.Items.Clear();
                 items.ForEach(item => lbTitles.Items.Add(item.Title));
+                tsslbMessage.Text = "";
+
             }
             catch (Exception) {
+                tsslbMessage.Text = "有効なURLがありません";
                 return;
             }
         }
@@ -59,6 +63,8 @@ namespace RssReader {
                 return;
             } else {
                 wvRssLink.Source = new Uri(items[lbTitles.SelectedIndex].Link);
+                tsslbMessage.Text = "";
+
             }
         }
 
@@ -75,6 +81,8 @@ namespace RssReader {
         //ページが切り替わるときに呼ばれる
         private void wvRssLink_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e) {
             checkMoves();
+            tsslbMessage.Text = "";
+
         }
 
         //マスク処理
@@ -85,28 +93,50 @@ namespace RssReader {
 
         //お気に入り登録
         private void btFavorite_Click(object sender, EventArgs e) {
-            //名称、URLともに未登録かつURLが記入されているの場合のみ登録
-            if (urlDict.ContainsKey(tbName.Text) || urlDict.ContainsValue(cbUrl.Text) || cbUrl.Text == "") {
+            //未登録の名前のURLが記入されているの場合のみ登録
+            if (IsValidUrl(cbUrl.Text)) {
+                if (urlDict.ContainsKey(tbName.Text) || urlDict.ContainsValue(cbUrl.Text) ||
+                    urlDict.ContainsKey(cbUrl.Text) || cbUrl.Text == "") {
+                    if (urlDict.ContainsKey(tbName.Text)) {
+                        tsslbMessage.Text = "既に使用されている名前です";
+                    }
+                    if (urlDict.ContainsValue(cbUrl.Text) || urlDict.ContainsKey(cbUrl.Text)) {
+                        tsslbMessage.Text = "既に登録されているURLです";
+                    }
+                } else {
+                    //名称が記入されていない場合はURLを名称として保存
+                    if (tbName.Text == "") {
+                        tbName.Text = cbUrl.Text;
+                    }
+                    urlDict.Add(tbName.Text, cbUrl.Text);
+                    cbUrl.DataSource = urlDict.Select(k => k.Key).ToList();
+                    cbUrl.Text = string.Empty;
+                    tbName.Text = string.Empty; //登録後にコンボボックス、テキストボックスの表示を初期化
+                    MessageBox.Show("登録しました。");
+                    tsslbMessage.Text = "";
 
-            } else {
-                //名称が記入されていない場合はURLを名称として保存
-                if (tbName.Text == "") {
-                    tbName.Text = cbUrl.Text;
                 }
-                urlDict.Add(tbName.Text, cbUrl.Text);
-                cbUrl.DataSource = urlDict.Select(k => k.Key).ToList();
-                cbUrl.Text = string.Empty;
-                tbName.Text = string.Empty; //登録後にコンボボックス、テキストボックスの表示を初期化
+            } else {
+                tsslbMessage.Text = "有効なURLでありません";
             }
         }
 
         //お気に入りの削除
         private void btDelete_Click(object sender, EventArgs e) {
             //現在コンボボックスから選択されているものを削除
-            urlDict.Remove(cbUrl.SelectedItem.ToString());
-            cbUrl.DataSource = urlDict.Select(k => k.Key).ToList();
-            cbUrl.Text = string.Empty;
-            tbName.Text = string.Empty; //削除後にコンボボックス、テキストボックスの表示を初期化
+            if (!urlDict.ContainsKey(cbUrl.Text) || cbUrl.Text == "") {
+                if (!urlDict.ContainsKey(cbUrl.Text)) {
+                    tsslbMessage.Text = "登録されていないURLです";
+                }
+            } else {
+                urlDict.Remove(cbUrl.SelectedItem.ToString());
+                cbUrl.DataSource = urlDict.Select(k => k.Key).ToList();
+                cbUrl.Text = string.Empty;
+                tbName.Text = string.Empty; //削除後にコンボボックス、テキストボックスの表示を初期化
+                MessageBox.Show("削除しました。");
+                tsslbMessage.Text = "";
+
+            }
         }
 
         //コンボボックスに格納されている文字列がURLかどうかの判別
@@ -115,6 +145,39 @@ namespace RssReader {
                 return urlDict[url];
             }
             return url;
+        }
+
+        private void lbTitles_DrawItem(object sender, DrawItemEventArgs e) {
+            var idx = e.Index;                                                      //描画対象の行
+            if (idx == -1) return;                                                  //範囲外なら何もしない
+            var sts = e.State;                                                      //セルの状態
+            var fnt = e.Font;                                                       //フォント
+            var _bnd = e.Bounds;                                                    //描画範囲(オリジナル)
+            var bnd = new RectangleF(_bnd.X, _bnd.Y, _bnd.Width, _bnd.Height);      //描画範囲(描画用)
+            var txt = (string)lbTitles.Items[idx];                                  //リストボックス内の文字
+            var bsh = new SolidBrush(lbTitles.ForeColor);                           //文字色
+            var sel = (DrawItemState.Selected == (sts & DrawItemState.Selected));   //選択行か
+            var odd = (idx % 2 == 1);                                               //奇数行か
+            var fore = Brushes.WhiteSmoke;                                          //偶数行の背景色
+            var bak = Brushes.LightGray;                                            //奇数行の背景色
+
+            e.DrawBackground();                                                     //背景描画
+
+            //奇数項目の背景色を変える（選択行は除く）
+            if (odd && !sel) {
+                e.Graphics.FillRectangle(bak, bnd);
+            } else if (!odd && !sel) {
+                e.Graphics.FillRectangle(fore, bnd);
+            }
+
+            //文字を描画
+            e.Graphics.DrawString(txt, fnt, bsh, bnd);
+        }
+        //urlが有効かどうかの判別
+        public static bool IsValidUrl(string url) {
+            Uri? uriResult;
+            return Uri.TryCreate(url, UriKind.Absolute, out uriResult) &&
+                    (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
         }
     }
 }
