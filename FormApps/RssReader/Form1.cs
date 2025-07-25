@@ -1,6 +1,8 @@
 using System.Net;
 using System.Security.Policy;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace RssReader {
@@ -147,6 +149,7 @@ namespace RssReader {
             return url;
         }
 
+        //色設定
         private void lbTitles_DrawItem(object sender, DrawItemEventArgs e) {
             var idx = e.Index;                                                      //描画対象の行
             if (idx == -1) return;                                                  //範囲外なら何もしない
@@ -173,11 +176,26 @@ namespace RssReader {
             //文字を描画
             e.Graphics.DrawString(txt, fnt, bsh, bnd);
         }
+
         //urlが有効かどうかの判別
         public static bool IsValidUrl(string url) {
             Uri? uriResult;
             return Uri.TryCreate(url, UriKind.Absolute, out uriResult) &&
                     (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
+            //ファイル保存(未完成)
+            try {
+                using (var favorite = XmlWriter.Create("FavoriteContents.xml")) {
+                    var serializer = new XmlSerializer(urlDict.GetType());
+                    serializer.Serialize(favorite, urlDict);
+                }
+            }
+            catch (Exception ex) {
+                tsslbMessage.Text = "ファイル書き出しエラー";
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

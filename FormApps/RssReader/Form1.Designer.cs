@@ -64,7 +64,7 @@
             // 
             // lbTitles
             // 
-            lbTitles.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lbTitles.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lbTitles.BackColor = SystemColors.ActiveBorder;
             lbTitles.DrawMode = DrawMode.OwnerDrawFixed;
             lbTitles.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
@@ -107,6 +107,7 @@
             // 
             // advance
             // 
+            advance.Font = new Font("Yu Gothic UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 128);
             advance.Location = new Point(63, 13);
             advance.Margin = new Padding(4);
             advance.Name = "advance";
@@ -155,7 +156,7 @@
             // lbName
             // 
             lbName.AutoSize = true;
-            lbName.BackColor = SystemColors.ActiveCaption;
+            lbName.BackColor = SystemColors.ActiveBorder;
             lbName.BorderStyle = BorderStyle.Fixed3D;
             lbName.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
             lbName.Location = new Point(273, 59);
@@ -200,6 +201,7 @@
             Margin = new Padding(4);
             Name = "Form1";
             Text = "RSSリーダ";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)wvRssLink).EndInit();
             statusStrip1.ResumeLayout(false);
