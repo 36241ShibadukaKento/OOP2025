@@ -1,21 +1,39 @@
 using System.Net;
 using System.Security.Policy;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace RssReader {
     public partial class Form1 : Form {
 
         private List<ItemData> items;
 
+        Dictionary<string, string> urlDict = new Dictionary<string, string> {
+            {"主要", "https://news.yahoo.co.jp/rss/topics/top-picks.xml"},
+            {"エンタメ","https://news.yahoo.co.jp/rss/topics/entertainment.xml" }
+        };
+
         public Form1() {
             InitializeComponent();
+
         }
 
+        //アプリが起動したときに呼ばれる
+        private void Form1_Load(object sender, EventArgs e) {
+            //マスク処理を行う
+            back.Enabled = false;
+            advance.Enabled = false;
+
+            cbUrl.DataSource = urlDict.Select(k => k.Key).ToList();
+            cbUrl.Text = string.Empty;
+        }
+
+        //取得
         private async void btRssGet_Click(object sender, EventArgs e) {
             try {
                 using (var hc = new HttpClient()) {
-                    XDocument xdoc = XDocument
-                    .Parse(await hc.GetStringAsync(tbUrl.Text));
+                    
+                    XDocument xdoc = XDocument.Parse(await hc.GetStringAsync(getRssUrl(cbUrl.Text)));
 
                     //RSSを解析して必要な要素を取得
                     items = xdoc.Root.Descendants("item")
@@ -54,18 +72,6 @@ namespace RssReader {
             if (this.wvRssLink != null && this.wvRssLink.CanGoForward) this.wvRssLink.GoForward();
         }
 
-        //コンボボックスにお気に入りを追加
-        private void setCombo(string pageName) {
-            //既に登録済みか確認
-            if (tbUrl.Items.Contains(pageName) || pageName == "") {
-
-            } else {
-                //未登録の場合登録
-                tbUrl.Items.Add(pageName);
-            }
-        }
-
-
         //ページが切り替わるときに呼ばれる
         private void wvRssLink_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e) {
             checkMoves();
@@ -77,11 +83,32 @@ namespace RssReader {
             advance.Enabled = wvRssLink.CanGoForward;
         }
 
-        //アプリが起動したときに呼ばれる
-        private void Form1_Load(object sender, EventArgs e) {
-            back.Enabled = false;
-            advance.Enabled = false;
+        //お気に入り登録
+        private void btFavorite_Click(object sender, EventArgs e) {
+            if (urlDict.ContainsKey(cbUrl.Text) || cbUrl.Text == ""){
 
+            } else {
+                //未登録の場合のみ登録 
+
+            }
+        }
+
+        //お気に入りの削除
+        private void btDelete_Click(object sender, EventArgs e) {
+            if (urlDict.ContainsKey(cbUrl.Text) || cbUrl.Text == "") {
+
+            } else {
+                //登録済みの場合削除
+
+            }
+        }
+
+        //コンボボックスに格納されている文字列がURLかどうかの判別
+        private string getRssUrl(string url) {
+            if (urlDict.ContainsKey(url)) {
+                return urlDict[url];
+            }
+            return url;
         }
     }
 }
