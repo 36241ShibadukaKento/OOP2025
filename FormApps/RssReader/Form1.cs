@@ -102,15 +102,11 @@ namespace RssReader {
 
         //お気に入りの削除
         private void btDelete_Click(object sender, EventArgs e) {
-            if (urlDict.ContainsKey(cbUrl.Text) || cbUrl.Text == "") {
-
-            } else {
-                //登録済みの場合削除
-
-
-                cbUrl.Text = string.Empty;
-                tbName.Text = string.Empty; //登録後にコンボボックス、テキストボックスの表示を初期化
-            }
+            //現在コンボボックスから選択されているものを削除
+            urlDict.Remove(cbUrl.SelectedItem.ToString());
+            cbUrl.DataSource = urlDict.Select(k => k.Key).ToList();
+            cbUrl.Text = string.Empty;
+            tbName.Text = string.Empty; //削除後にコンボボックス、テキストボックスの表示を初期化
         }
 
         //コンボボックスに格納されている文字列がURLかどうかの判別
