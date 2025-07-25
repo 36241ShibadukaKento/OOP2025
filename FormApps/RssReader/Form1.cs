@@ -32,7 +32,7 @@ namespace RssReader {
         private async void btRssGet_Click(object sender, EventArgs e) {
             try {
                 using (var hc = new HttpClient()) {
-                    
+
                     XDocument xdoc = XDocument.Parse(await hc.GetStringAsync(getRssUrl(cbUrl.Text)));
 
                     //RSSを解析して必要な要素を取得
@@ -85,11 +85,18 @@ namespace RssReader {
 
         //お気に入り登録
         private void btFavorite_Click(object sender, EventArgs e) {
-            if (urlDict.ContainsKey(cbUrl.Text) || cbUrl.Text == ""){
+            //名称、URLともに未登録かつURLが記入されているの場合のみ登録
+            if (urlDict.ContainsKey(tbName.Text) || urlDict.ContainsValue(cbUrl.Text) || cbUrl.Text == "") {
 
             } else {
-                //未登録の場合のみ登録 
-
+                //名称が記入されていない場合はURLを名称として保存
+                if (tbName.Text == "") {
+                    tbName.Text = cbUrl.Text;
+                }
+                urlDict.Add(tbName.Text, cbUrl.Text);
+                cbUrl.DataSource = urlDict.Select(k => k.Key).ToList();
+                cbUrl.Text = string.Empty;
+                tbName.Text = string.Empty; //登録後にコンボボックス、テキストボックスの表示を初期化
             }
         }
 
@@ -100,6 +107,9 @@ namespace RssReader {
             } else {
                 //登録済みの場合削除
 
+
+                cbUrl.Text = string.Empty;
+                tbName.Text = string.Empty; //登録後にコンボボックス、テキストボックスの表示を初期化
             }
         }
 

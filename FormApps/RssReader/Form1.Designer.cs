@@ -79,7 +79,7 @@
             wvRssLink.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             wvRssLink.BackColor = SystemColors.AppWorkspace;
             wvRssLink.CreationProperties = null;
-            wvRssLink.DefaultBackgroundColor = Color.White;
+            wvRssLink.DefaultBackgroundColor = Color.LightGray;
             wvRssLink.ForeColor = Color.Black;
             wvRssLink.Location = new Point(12, 293);
             wvRssLink.Margin = new Padding(4);
@@ -128,7 +128,7 @@
             // 
             btDelete.BackColor = SystemColors.ButtonFace;
             btDelete.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btDelete.Location = new Point(662, 57);
+            btDelete.Location = new Point(663, 57);
             btDelete.Margin = new Padding(4);
             btDelete.Name = "btDelete";
             btDelete.Size = new Size(75, 31);
@@ -141,7 +141,7 @@
             // 
             tbName.BackColor = SystemColors.ActiveCaption;
             tbName.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            tbName.Location = new Point(340, 59);
+            tbName.Location = new Point(340, 57);
             tbName.Margin = new Padding(4);
             tbName.Name = "tbName";
             tbName.Size = new Size(192, 29);
