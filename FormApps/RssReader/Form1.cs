@@ -186,16 +186,16 @@ namespace RssReader {
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
             //ファイル保存(未完成)
-            try {
-                using (var favorite = XmlWriter.Create("FavoriteContents.xml")) {
-                    var serializer = new XmlSerializer(urlDict.GetType());
-                    serializer.Serialize(favorite, urlDict);
-                }
-            }
-            catch (Exception ex) {
-                tsslbMessage.Text = "ファイル書き出しエラー";
-                MessageBox.Show(ex.Message);
-            }
+            //try {
+            //    using (var favorite = XmlWriter.Create("FavoriteContents.xml")) {
+            //        var serializer = new XmlSerializer(urlDict.GetType());
+            //        serializer.Serialize(favorite, urlDict);
+            //    }
+            //}
+            //catch (Exception ex) {
+            //    tsslbMessage.Text = "ファイル書き出しエラー";
+            //    MessageBox.Show(ex.Message);
+            //}
         }
     }
 }
