@@ -24,5 +24,15 @@ namespace ConverterApp
         {
             InitializeComponent();
         }
+
+        //▲をクリック
+        private void ImperialUnitToMetric_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        //▼をクリック
+        private void MetricToImperialUnit_Click(object sender, RoutedEventArgs e) {
+
+        }
     }
 }

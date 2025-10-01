@@ -9,17 +9,27 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBox  Name= "MetricValue" Margin="4" Width="100"/>
-            <ComboBox  Name= "MetricUnit" Margin="4" Width="80"/>
+            <ComboBox  Name= "MetricUnit" Margin="4" Width="80">
+                <ComboBoxItem Content="mm" Tag="1"/>
+                <ComboBoxItem Content="cm" Tag="10"/>
+                <ComboBoxItem Content="m"  Tag="1000"/>
+                <ComboBoxItem Content="km" Tag="1000000"/>
+            </ComboBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="ImperialUnitToMetric" Margin="4" Width="40" Content="▲"/>
-            <Button Name="MetricToImperialUnit" Margin="4" Width="40" Content="▼"/>
+            <Button Name="ImperialUnitToMetric" Margin="4" Width="40" Content="▲" Click="ImperialUnitToMetric_Click"/>
+            <Button Name="MetricToImperialUnit" Margin="4" Width="40" Content="▼" Click="MetricToImperialUnit_Click"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
             <TextBox  Name= "ImperialValue" Margin="4" Width="100"/>
-            <ComboBox  Name= "ImperialUnit" Margin="4" Width="80"/>
+            <ComboBox  Name= "ImperialUnit" Margin="4" Width="80">
+                <ComboBoxItem Content="in" Tag="25"/>
+                <ComboBoxItem Content="ft" Tag="304"/>
+                <ComboBoxItem Content="yd" Tag="914"/>
+                <ComboBoxItem Content="ml" Tag="1609347"/>
+            </ComboBox>
         </StackPanel>
     </StackPanel>
 </Window>
