@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HelloWorld
 {
-    class ViewModel : INotifyPropertyChanged
+    class ViewModel : BindableBase
     {
         public ViewModel() {
             ChangeMassageCommand = new DelegateCommand(
@@ -18,16 +18,11 @@ namespace HelloWorld
         private string _greetingMassage = "Hello World!";
         public string GreetingMassage {
             get => _greetingMassage;
-            set {
-                if (_greetingMassage != value) {
-                    _greetingMassage = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GreetingMassage)));
-                }
-            }
+            set => SetProperty(ref _greetingMassage, value);
         }
 
         public DelegateCommand ChangeMassageCommand { get; }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+
     }
 }
