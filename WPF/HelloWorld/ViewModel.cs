@@ -12,26 +12,17 @@ namespace HelloWorld
     {
         public ViewModel() {
             ChangeMessageCommand = new DelegateCommand<string>(
-                (par)=> GreetingMessage = par
-                );
+                (par)=> GreetingMessage = par,
+                (par)=>GreetingMessage != par
+                ).ObservesProperty(()=>GreetingMessage);
         }
 
         private string _greetingMessage = "Tell the truth";
         public string GreetingMessage {
             get => _greetingMessage;
-            set {
-                if(SetProperty(ref _greetingMessage, value)) {
-                    CanChangeMessage = false;
-                }
-            }
-        }
+            set => SetProperty(ref _greetingMessage, value);
+        }       
 
-        private bool _canChangeMessage = true;
-       
-        public bool CanChangeMessage {
-            get => _canChangeMessage;
-            private set => SetProperty(ref _canChangeMessage, value);
-        }
 
         public string NewMessage1 { get; } = "Global warming is a lie";
         public string NewMessage2 { get; } = "The earth is flat";
