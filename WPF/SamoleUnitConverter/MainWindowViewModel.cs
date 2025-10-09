@@ -1,4 +1,4 @@
-﻿using SampleUnitConverter;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +15,9 @@ namespace SamoleUnitConverter
         private double imperialValue;
 
         //▲で呼ばれるコマンド
-        public ICommand ImperialUnitToMetric { get; private set; }
+        public DelegateCommand ImperialUnitToMetric { get; private set; }
         //▼で呼ばれるコマンド
-        public ICommand MetricToImperialUnit { get; private set; }
+        public DelegateCommand MetricToImperialUnit { get; private set; }
 
         //上のコンボボックスで選択されている値を保存
         public MetricUnit CurrentMetricUnit { get; set; }
@@ -37,10 +37,13 @@ namespace SamoleUnitConverter
         }
 
         public MainWindowViewModel() {
-            ImperialUnitToMetric = new Prism.Commands.DelegateCommand(
+            CurrentImperialUnit = ImperialUnit.Units.First();
+            CurrentMetricUnit = MetricUnit.Units.First();
+
+            ImperialUnitToMetric = new DelegateCommand(
                 () =>MetricValue = 
                 CurrentMetricUnit.FromImperialUnit(CurrentImperialUnit,ImperialValue));
-            MetricToImperialUnit = new Prism.Commands.DelegateCommand(
+            MetricToImperialUnit = new DelegateCommand(
                 () => ImperialValue = 
                 CurrentImperialUnit.FromMetricUnit(CurrentMetricUnit, metricValue));
         }
