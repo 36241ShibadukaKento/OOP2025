@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace SamoleUnitConverter
 {
-     internal class MainWindowViewModel : ViewModel
+     internal class MainWindowViewModel : BindableBase
     {
         //フィールド
         private double metricValue;
@@ -26,25 +26,21 @@ namespace SamoleUnitConverter
 
         //プロパティ
         public double MetricValue {
-            get => metricValue; 
-            set {
-                this.metricValue = value;
-                this.OnPropertyChanged();
-            }
+  
+            get => metricValue;
+            set => SetProperty(ref metricValue, value);
+        
         }
         public double ImperialValue {
             get => imperialValue;
-            set {
-                this.imperialValue = value;
-                this.OnPropertyChanged();
-            }
+            set => SetProperty(ref imperialValue, value);
         }
 
         public MainWindowViewModel() {
-            ImperialUnitToMetric = new DelegateCommand(
+            ImperialUnitToMetric = new Prism.Commands.DelegateCommand(
                 () =>MetricValue = 
                 CurrentMetricUnit.FromImperialUnit(CurrentImperialUnit,ImperialValue));
-            MetricToImperialUnit = new DelegateCommand(
+            MetricToImperialUnit = new Prism.Commands.DelegateCommand(
                 () => ImperialValue = 
                 CurrentImperialUnit.FromMetricUnit(CurrentMetricUnit, metricValue));
         }
