@@ -13,17 +13,17 @@ namespace CustomerApp.Data {
         /// <summary>
         /// 名前
         /// </summary>
-        public int Name { get; set; }
+        public String Name { get; set; } = string.Empty;
 
         /// <summary>
         /// 電話番号
         /// </summary>
-        public int Phone { get; set; }
+        public String Phone { get; set; } = string.Empty;
 
         /// <summary>
         /// 住所
         /// </summary>
-        public int Address { get; set; }
+        public String Address { get; set; } = string.Empty;
 
         /// <summary>
         /// 画像
