@@ -139,11 +139,11 @@ namespace CustomerApp {
 
         private void PictureButton_Click(object sender, RoutedEventArgs e) {
             OpenFileDialog ofd = new OpenFileDialog();
-            var ret = ofd.ShowDialog();
-            if (ret ?? false) {
 
-            }
+            // フィルタ設定を最初に行う
             ofd.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+
+            // 1回目の ShowDialog() は削除し、この1回だけにする
             if (ofd.ShowDialog() == true) {
                 try {
                     string selectedFilePath = ofd.FileName;
@@ -156,13 +156,13 @@ namespace CustomerApp {
                         bitmap.EndInit();
                         bitmap.Freeze();
                         PictureBox.Source = bitmap;
-
                     }
                 }
                 catch (Exception ex) {
                     MessageBox.Show("ファイルの読み込み中エラーが発生しました");
                 }
             }
+        
         }
         private void DeletePictureButton_Click(object sender, RoutedEventArgs e) {
             PictureBox.Source = null;
