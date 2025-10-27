@@ -166,6 +166,6 @@ namespace CustomerApp {
         }
         private void DeletePictureButton_Click(object sender, RoutedEventArgs e) {
             PictureBox.Source = null;
-        }       
+        }
     }
 }
