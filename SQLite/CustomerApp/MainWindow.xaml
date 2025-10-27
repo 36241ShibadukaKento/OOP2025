@@ -23,14 +23,15 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="22*"/>
             </Grid.RowDefinitions>
-            <Label   Grid.Row="0" Content="指名"/>
+            <Label   Grid.Row="0" Content="氏名"/>
             <TextBox Grid.Row="1" x:Name="NameTextBox"    Margin="5" />
             <Label   Grid.Row="2" Content="電話番号"/>
             <TextBox Grid.Row="3" x:Name="PhoneTextBox"   Margin="5" />
             <Label   Grid.Row="4" Content="住所"/>
             <TextBox Grid.Row="5" x:Name="AddressTextBox" Margin="5" />
             <Label   Grid.Row="6" Content="画像"/>
-            <Button  Grid.Row="6" x:Name="PictureButton" Content="画像を選択" Margin="70,0,10,0" Click="PictureButton_Click"/>
+            <Button  Grid.Row="6" x:Name="PictureButton" Content="画像を選択" Margin="130,0,10,0" Click="PictureButton_Click"/>
+            <Button  Grid.Row="6" x:Name="DeletePictureButton" Content="画像を削除 " Margin="50,0,150,0" Click="DeletePictureButton_Click"/>
             <Image   Grid.Row="7" x:Name="PictureBox" Margin="5" />
         </Grid>
         <Grid Grid.Column="1">
@@ -45,10 +46,20 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" FontSize="20"/>
-                            <TextBlock Text="{Binding Phone}" FontSize="10"/>
-                            <TextBlock Text="{Binding Address}" FontSize="10"/>
-                            <Image   Source ="{Binding Picture}"  />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image      Source ="{Binding Picture}" Width="100" Height="auto"  />
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock   Text="{Binding Name}" FontSize="20"/>
+                                    <TextBlock   Text="{Binding Phone}" FontSize="15"/>
+                                    <TextBlock   Text="{Binding Address}" FontSize="15"/>
+                                </StackPanel>
+
+                            </Grid>
+                           
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

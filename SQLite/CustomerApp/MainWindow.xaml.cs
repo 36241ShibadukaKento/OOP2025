@@ -34,32 +34,62 @@ namespace CustomerApp {
         }
 
         private void NewRegistration_Click(object sender, RoutedEventArgs e) {
-            var customer = new Customer() {
-                Name = NameTextBox.Text,
-                Phone = PhoneTextBox.Text,
-                Address = AddressTextBox.Text,
-                //Picture = PictureBox.Source
-            };
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text)) {
+                MessageBox.Show("氏名を入力してください");
+            } else {
+                byte[] binary;
+                BitmapEncoder encoder = new PngBitmapEncoder();
 
-            using (var connection = new SQLiteConnection(App.databasePath)) {
-                connection.CreateTable<Customer>();
-                connection.Insert(customer);
+                if (PictureBox.Source == null) {
+                    binary = null;
+                } else {
+                    encoder.Frames.Add(BitmapFrame.Create((BitmapImage)PictureBox.Source));
+
+                    using (var ms = new MemoryStream()) {
+                        encoder.Save(ms);
+                        binary = ms.ToArray();
+                    }
+                }
+                var customer = new Customer() {
+                    Name = NameTextBox.Text,
+                    Phone = PhoneTextBox.Text,
+                    Address = AddressTextBox.Text,
+                    Picture = binary
+                };
+
+                using (var connection = new SQLiteConnection(App.databasePath)) {
+                    connection.CreateTable<Customer>();
+                    connection.Insert(customer);
+                }
+                ReadDatabace();
+                CustomerListView.ItemsSource = _Customer;
             }
-            ReadDatabace();
-            CustomerListView.ItemsSource = _Customer;
         }
 
         private void UpDateButton_Click(object sender, RoutedEventArgs e) {
-            var selectedPerson = CustomerListView.SelectedItem as Customer;
-            if (selectedPerson is null) return;
+            byte[] binary;
+            BitmapEncoder encoder = new PngBitmapEncoder();
+
+            if (PictureBox.Source == null) {
+                binary = null;
+            } else {
+                encoder.Frames.Add(BitmapFrame.Create((BitmapImage)PictureBox.Source));
+                using (var ms = new MemoryStream()) {
+                    encoder.Save(ms);
+                    binary = ms.ToArray();
+                }
+            }
+            var selected = CustomerListView.SelectedItem as Customer;
+            if (selected is null) return;
 
             using (var connection = new SQLiteConnection(App.databasePath)) {
                 connection.CreateTable<Customer>();
                 var person = new Customer() {
-                    Id = selectedPerson.Id,
+                    Id = selected.Id,
                     Name = NameTextBox.Text,
                     Phone = PhoneTextBox.Text,
-                    Address = AddressTextBox.Text
+                    Address = AddressTextBox.Text,
+                    Picture = binary
                 };
                 connection.Update(person);
                 ReadDatabace();
@@ -84,19 +114,33 @@ namespace CustomerApp {
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            var selectedPerson = CustomerListView.SelectedItem as Customer;
-            if (selectedPerson == null) return;
-            NameTextBox.Text = selectedPerson?.Name;
-            PhoneTextBox.Text = selectedPerson?.Phone;
-            AddressTextBox.Text = selectedPerson?.Address;
+            var selected = CustomerListView.SelectedItem as Customer;
+            if (selected == null) return;
+            NameTextBox.Text = selected?.Name;
+            PhoneTextBox.Text = selected?.Phone;
+            AddressTextBox.Text = selected?.Address;
+
+            if (selected?.Picture == null) {
+                PictureBox.Source = null;
+            } else {
+                BitmapImage bitmapImage = new BitmapImage();
+                using (var ms = new MemoryStream(selected?.Picture)) {
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad; // ストリームを閉じた後も画像データを保持する
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.EndInit();
+                }
+                PictureBox.Source = bitmapImage;
+            }
 
         }
 
         private byte[]? _tempImageBytes = null;
+
         private void PictureButton_Click(object sender, RoutedEventArgs e) {
             OpenFileDialog ofd = new OpenFileDialog();
-            var ret =  ofd.ShowDialog();
-            if(ret ?? false) {
+            var ret = ofd.ShowDialog();
+            if (ret ?? false) {
 
             }
             ofd.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
@@ -120,5 +164,8 @@ namespace CustomerApp {
                 }
             }
         }
+        private void DeletePictureButton_Click(object sender, RoutedEventArgs e) {
+            PictureBox.Source = null;
+        }       
     }
 }
