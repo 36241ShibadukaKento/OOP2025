@@ -36,7 +36,7 @@ namespace Exercise01 {
             foreach (var book in selected) {
                 Console.WriteLine($"{book.year}年 : {book.count}");
             }
-            
+
         }
 
         private static void Exercise1_4() {
@@ -61,11 +61,25 @@ namespace Exercise01 {
             foreach (var name in books) {
                 Console.WriteLine(name);
             }
-                
+
         }
 
         private static void Exercise1_6() {
             Console.WriteLine("(6)");
+            var groups = Library.Categories
+                .GroupJoin(Library.Books
+                   ,c => c.Id
+                   ,b => b.CategoryId
+                   , (c,books) => new {
+                       Category = c.Name
+                       ,Books = books
+                   });
+            foreach (var year in groups) {
+                Console.WriteLine($"# {year.Category}");
+                foreach (var book in year.Books) {
+                    Console.WriteLine($"  {book.Title}");
+                }
+            }
         }
 
         private static void Exercise1_7() {
