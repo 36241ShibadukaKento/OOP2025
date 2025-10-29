@@ -67,6 +67,7 @@ namespace Exercise01 {
         private static void Exercise1_6() {
             Console.WriteLine("(6)");
             var groups = Library.Categories
+                .OrderBy(n=>n.Name)
                 .GroupJoin(Library.Books
                    ,c => c.Id
                    ,b => b.CategoryId
