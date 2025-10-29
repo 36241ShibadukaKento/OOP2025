@@ -42,15 +42,26 @@ namespace Exercise01 {
         private static void Exercise1_4() {
             Console.WriteLine("(4)");
             var books = Library.Books
-                .OrderByDescending(b => b.Price)
-                .OrderByDescending(b => b.PublishedYear);
+                .OrderByDescending(b => b.PublishedYear)
+                .ThenByDescending(b => b.Price)
+                .ThenByDescending(b => b.Title);
             foreach (var book in books) {
-                Console.WriteLine($"{book}");
+                Console.WriteLine($"{book.PublishedYear}年 {book.Price}円 {book.Title}");
             }
         }
 
         private static void Exercise1_5() {
             Console.WriteLine("(5)");
+            var books = Library.Books
+                .Where(b => b.PublishedYear == 2022)
+                .Join(Library.Categories
+                , Book => Book.CategoryId
+                , Category => Category.Id
+                , (book, Category) => Category.Name).Distinct();
+            foreach (var name in books) {
+                Console.WriteLine(name);
+            }
+                
         }
 
         private static void Exercise1_6() {
