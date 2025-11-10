@@ -6,7 +6,7 @@ namespace Exercise01 {
             var text = "C://Users//infosys//source//repos//OOP2025//Chapter10//演習問題//Exercise01//source.txt";
             var target = " class ";
             using (StreamReader reader = new StreamReader(text)) {
-                var count = File.ReadAllLines(text).Count(s => s.Contains(target));
+                var count = File.ReadLines(text).Count(s => s.Contains(target));
                 Console.WriteLine(count);
             }
         }
