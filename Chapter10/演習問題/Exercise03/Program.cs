@@ -16,7 +16,6 @@ namespace Exercise03 {
                     writer.WriteLine(line);
                 }
             }
-
         }
     }
 }
