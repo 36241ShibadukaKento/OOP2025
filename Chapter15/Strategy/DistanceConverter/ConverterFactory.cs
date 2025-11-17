@@ -9,9 +9,11 @@ namespace DistanceConverter {
         //あらかじめインスタンスを生成し、配列に入れておく
         public readonly static ConverterBase[] _converters = {
             new MeterConverter(),
+            new KiloMeterConverter(),
             new FeetConverter(),
             new YardConverter(),
-            new InchConverter()
+            new InchConverter(),
+            new MileConverter(),
         };
         public static ConverterBase? GetInstance(string name) =>
             _converters.FirstOrDefault(x => x.IsMyUnit(name));

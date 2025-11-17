@@ -13,6 +13,14 @@ namespace DistanceConverter {
         public override string UnitName => "メートル";
     }
 
+    public class KiloMeterConverter : ConverterBase {
+        public override bool IsMyUnit(string name) =>
+            name.ToLower() == "kilometer" || name == UnitName;
+
+        protected override double Ratio => 1000;
+        public override string UnitName => "キロメートル";
+    }
+
     public class FeetConverter : ConverterBase {
         public override bool IsMyUnit(string name) =>
             name.ToLower() == "feet" || name == UnitName;
@@ -35,5 +43,13 @@ namespace DistanceConverter {
 
         protected override double Ratio => 0.9144;
         public override string UnitName => "ヤード";
+    }
+
+    public class MileConverter : ConverterBase {
+        public override bool IsMyUnit(string name) =>
+            name.ToLower() == "mile" || name == UnitName;
+
+        protected override double Ratio => 1609.34;
+        public override string UnitName => "マイル";
     }
 }
