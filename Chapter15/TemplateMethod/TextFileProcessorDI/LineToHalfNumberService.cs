@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,15 @@ namespace TextFileProcessorDI {
         }
 
         public void Excute(string line) {
+            var sb = new StringBuilder();
+            foreach (char c in line) {
+                if (c >= '０' && c <= '９') {
+                    sb.Append((char)(c - 65248));
+                } else {
+                    sb.Append(c);
+                }
+            }
+            Console.WriteLine(sb.ToString());
         }
 
         public void Terminate() {
