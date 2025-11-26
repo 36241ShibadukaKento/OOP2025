@@ -1,18 +1,17 @@
-﻿using System.Globalization;
-using System.Net.Http;
-using System.Text.Json;
-using System.Windows;
-using System.Windows.Data;
+﻿using System.Windows;
 using TenkiApp.ViewModel;
 
 namespace TenkiApp {
-
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            DataContext = new MainViewModel();
+        }
 
-            this.DataContext = new MainViewModel();
-
+        private async void Window_Loaded(object sender, RoutedEventArgs e) {
+            if (DataContext is MainViewModel vm) {
+                await vm.InitializeAsync();
+            }
         }
     }
 }

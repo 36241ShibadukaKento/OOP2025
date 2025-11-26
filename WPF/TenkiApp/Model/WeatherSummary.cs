@@ -1,6 +1,6 @@
 ﻿namespace TenkiApp.Model {
     public class WeatherSummary {
-        public string LocationName { get; set; } = "場所を検索してください";
+        public string LocationName { get; set; } = "現在地の天気を調べます";
         public string Temperature { get; set; } = "--°C";
         public string WeatherIcon { get; set; } = "❓";
         public string WeatherDescription { get; set; } = "___";
